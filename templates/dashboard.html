@@ -1,0 +1,96 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>InvestTrack - Dashboard</title>
+  <link rel="icon" type="png" href="/assets/INVEST TRACK.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <span class="logo-icon">📈</span> InvestTrack
+    </div>
+    <ul class="nav-menu">
+      <li><a href="{{ url_for('dashboard') }}" class="active">Dashboard</a></li>
+      <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+      <li><a href="reports.html">Reports</a></li>
+    </ul>
+    <div class="navbar-right">
+      <div class="nav-item notifications">
+        <span>🔔</span>
+      </div>
+      <div class="nav-item user-profile">
+        <div class="user-avatar">JD</div>
+        <span>John Doe</span>
+      </div>
+      <div class="nav-item logout">
+        <button id="logout-btn">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">Connect Your Accounts</h1>
+      <div class="dashboard-actions">
+        <button class="btn" id="view-portfolio-btn">View Portfolio</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Linked Demat Accounts</h2>
+      </div>
+
+      <div class="card-content">
+        <p>Link your demat accounts to view all your investments in one place.</p>
+      </div>
+
+      <div class="broker-list">
+        <!-- Zerodha only -->
+        <div 
+          class="broker-card" 
+          id="zerodha-connect" 
+          data-connected="{{ 'true' if zerodha_connected else 'false' }}"
+        >
+          <div class="broker-logo">🔶</div>
+          <h3 class="broker-name">Zerodha</h3>
+          <p>Demat & Trading</p>
+          <span 
+            class="broker-status {{ 'status-connected' if zerodha_connected else 'status-not-connected' }}"
+          >
+            {{ 'Connected' if zerodha_connected else 'Not Connected' }}
+          </span>
+        </div>
+
+        <!-- Placeholder for other brokers (disabled) -->
+        <div class="broker-card disabled">
+          <div class="broker-logo">🔰</div>
+          <h3 class="broker-name">Angel One</h3>
+          <p>Coming Soon</p>
+        </div>
+        <div class="broker-card disabled">
+          <div class="broker-logo">🏦</div>
+          <h3 class="broker-name">HDFC Securities</h3>
+          <p>Coming Soon</p>
+        </div>
+        <!-- etc. -->
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Recent Activities</h2>
+      </div>
+      <div class="card-content">
+        <p>No recent activities to show. Connect your accounts to see your investment activities.</p>
+      </div>
+    </div>
+  </div>
+
+<script type="module" src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
