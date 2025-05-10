@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>InvestTrack - Portfolio</title>
+  <link rel="icon" type="png" href="/assets/INVEST TRACK.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo"><span class="logo-icon">📈</span> InvestTrack</div>
+    <ul class="nav-menu">
+      <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+      <li><a href="{{ url_for('portfolio') }}" class="active">Portfolio</a></li>
+      <li><a href="#">Reports</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">My Portfolio</h1>
+      <div class="dashboard-actions">
+        <button class="action-btn" id="refresh-btn">Refresh Data</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2 class="card-title">Portfolio Summary</h2></div>
+      <div class="portfolio-summary">
+        <div class="summary-item">
+          <div class="summary-label">Current Value</div>
+          <div class="summary-value" id="current-value">–</div>
+          <br>
+          <div class="summary-label">Today's change</div>
+          <div class="summary-change" id="today-change"></div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Invested Amount</div>
+          <div class="summary-value" id="invested-amount">–</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Overall Returns</div>
+          <div class="summary-value" id="overall-returns">–</div>
+          <div class="summary-change" id="overall-returns-pct">–</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2 class="card-title">Holdings</h2></div>
+      <div class="tabs">
+        <div class="tab active" data-tab="all">All</div>
+        <div class="tab"       data-tab="stocks">Stocks</div>
+        <div class="tab"       data-tab="mutual-funds">Mutual Funds</div>
+        <div class="tab"       data-tab="etfs">ETFs</div>
+        <div class="tab"       data-tab="bonds">Bonds</div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-group">
+          <span class="filter-label">Broker:</span>
+          <select id="broker-filter">
+            <option value="all">All Brokers</option>
+            <option value="zerodha">Zerodha</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Sort By:</span>
+          <select id="sort-filter">
+            <option value="alpha">Alphabetical</option>
+            <option value="value">Current Value</option>
+            <option value="returns">Returns %</option>
+            <option value="change">Day Change</option>
+          </select>
+        </div>
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search..."/>
+        </div>
+      </div>
+
+      <div class="tab-content active" id="all-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Instrument</th><th>Broker</th><th>Qty</th><th>Avg. Price</th>
+              <th>Current Price</th><th>Current Value</th><th>Returns</th>
+              <th>Day Change</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="holdings-tbody">
+            <!-- rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="{{ url_for('static', filename='js/portfolio.js') }}"></script>
+</body>
+</html>
