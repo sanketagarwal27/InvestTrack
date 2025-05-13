@@ -22,6 +22,10 @@ document.getElementById("view-portfolio-btn").addEventListener("click", function
     window.location.href = "/portfolio";
 });
 
+document.getElementById("home-redirect-btn").addEventListener("click", function() {
+    window.location.href = "/dashboard";
+    });
+
 // Dynamically load Firebase SDK
 // Dynamically load Firebase SDK as an ES module
 (function() {
@@ -64,12 +68,10 @@ function initializeFirebase() {
             console.error("Error signing out: ", error);
         });
     });
-    firebase.auth().onAuthStateChanged(function(user) {
+    auth.onAuthStateChanged(function(user) {
     if (!user) {
     // User is not signed in, redirect to login page
-    window.location.href = "/"; // or wherever your login page is
+    window.location.href = "/";
   }
 });
 }
-
-

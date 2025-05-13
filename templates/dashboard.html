@@ -5,18 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>InvestTrack - Dashboard</title>
-  <link rel="icon" type="png" href="/assets/INVEST TRACK.png">
+  <link rel="icon" type="png" href="{{ url_for('static', filename='assets/INVEST_TRACK.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
 </head>
 <body>
   <nav class="navbar">
     <div class="logo">
-      <span class="logo-icon">📈</span> InvestTrack
+      <span class="logo-icon">📈</span> <btn id="home-redirect-btn" style="cursor: pointer;"> InvestTrack </btn>
     </div>
     <ul class="nav-menu">
       <li><a href="{{ url_for('dashboard') }}" class="active">Dashboard</a></li>
       <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
-      <li><a href="reports.html">Reports</a></li>
+      <li><a href="{{ url_for('news') }}">News</a></li>
     </ul>
     <div class="navbar-right">
       <div class="nav-item notifications">
@@ -56,7 +56,7 @@
           id="zerodha-connect" 
           data-connected="{{ 'true' if zerodha_connected else 'false' }}"
         >
-          <div class="broker-logo">🔶</div>
+          <div class="broker-logo"><img src="{{ url_for('static', filename='assets/zerodha_icon.png') }}" width="'150" height="50" alt="Zerodha Logo"></div>
           <h3 class="broker-name">Zerodha</h3>
           <p>Demat & Trading</p>
           <span 
@@ -68,7 +68,7 @@
 
         <!-- Placeholder for other brokers (disabled) -->
         <div class="broker-card disabled">
-          <div class="broker-logo">🔰</div>
+          <div class="broker-logo"><img src="{{ url_for('static', filename='assets/angelone_icon.png') }}" width="'150" height="50" alt="AngelOne Logo"></div>
           <h3 class="broker-name">Angel One</h3>
           <p>Coming Soon</p>
         </div>
