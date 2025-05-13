@@ -20,7 +20,7 @@ async function loadHoldings() {
     const res = await fetch('/api/zerodha/holdings');
     const payload = await res.json();
     if (payload.error) {
-      alert('Error: ' + payload.error);
+      alert('Zerodha Broker not connected. Please connect to Zerodha first.');
       return;
     }
     allHoldings = payload.holdings;

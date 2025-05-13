@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>InvestTrack - Portfolio</title>
-  <link rel="icon" type="png" href="/assets/INVEST TRACK.png">
+  <link rel="icon" type="png" href="{{ url_for('static', filename='assets/INVEST_TRACK.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}"/>
 </head>
 <body>
@@ -13,7 +13,7 @@
     <ul class="nav-menu">
       <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
       <li><a href="{{ url_for('portfolio') }}" class="active">Portfolio</a></li>
-      <li><a href="#">Reports</a></li>
+      <li><a href="{{ url_for('news') }}">News</a></li>
     </ul>
   </nav>
 
