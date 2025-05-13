@@ -12,7 +12,7 @@
 <body>
   <div class="container">
     <div class="logo">
-      <div class="logo-icon">📈</div>
+      <div class="logo-icon"><img src="{{ url_for('static', filename='assets/INVEST TRACK.png') }}" width="'150" height="50" alt="Logo"></div>
       <h1>InvestTrack</h1>
     </div>
     
@@ -33,7 +33,7 @@
         <label>
           <input type="checkbox" id="remember"> Remember me
         </label>
-        <a href="#">Forgot password?</a>
+        <a href="#" id="forgot">Forgot password?</a>
       </div>
       
       <button type="submit" class="btn">Login</button>

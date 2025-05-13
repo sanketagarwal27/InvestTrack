@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } 
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } 
 from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 
 // Firebase configuration
@@ -66,6 +66,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    //forgot password
+    const forgotPasswordLink = document.getElementById('forgot');
+
+    forgotPasswordLink.addEventListener("click",function(event){
+      event.preventDefault();
+      const email = document.getElementById('username').value;
+      sendPasswordResetEmail(auth, email)
+  .then(() => {
+    // Password reset email sent!
+    alert('Reset Email Sent');
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(errorMessage);
+    // ..
+  });
+    })
     // Google Authentication
     googleLoginBtn.addEventListener('click', function() {
         signInWithPopup(auth, provider)
