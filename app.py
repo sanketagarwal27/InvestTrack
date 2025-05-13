@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, request, session, url_for, jsonify
 from services.zerodha_auth import ZerodhaAuth
 import os
+import requests
+import feedparser
+from dotenv import load_dotenv
 
 app = Flask(__name__,
             static_url_path='/static',
@@ -126,7 +129,6 @@ def api_zerodha_holdings():
             val  = round(qty * last, 2)
             pl   = round((last - avg) * qty, 2)
             pct  = round(((last - avg) / avg * 100) if avg > 0 else 0, 2)
-
             holdings.append({
                 "instrument":      name,
                 "name":            name,
@@ -137,7 +139,7 @@ def api_zerodha_holdings():
                 "current_value":   val,
                 "total_returns":   pl,
                 "returns_percent": pct,
-                "day_change":      0,
+                "day_change":      0, #Not yet done 
                 "type":            "mutual-funds"
             })
         except Exception as inner:
@@ -152,6 +154,51 @@ def api_zerodha_holdings():
 def portfolio():
     # no initial data needed; portfolio.html+JS will fetch it
     return render_template('portfolio.html')
+
+@app.route('/news')
+def news():
+    return render_template('news.html')
+
+@app.route('/api/news')
+def get_news():
+    feed = feedparser.parse('https://www.moneycontrol.com/rss/latestnews.xml')
+    articles = []
+
+    for entry in feed.entries[:10]:  # Limit to top 10
+        articles.append({
+            'title': entry.title,
+            'description': entry.summary,
+            'url': entry.link
+        })
+
+    return jsonify({'articles': articles})
+
+@app.route("/api/nifty")
+def get_nifty():
+    # Set up headers to mimic a browser request
+    headers = {
+    "User-Agent": "Mozilla/5.0",
+    "Accept": "*/*",
+    "Referer": "https://www.nseindia.com"
+}
+    url = "https://www.nseindia.com/api/equity-stockIndices?index=NIFTY%2050"
+    r = requests.get(url, headers=headers)
+    data = r.json()
+    return jsonify({
+        "index": data["data"][0]["indexName"],
+        "last": data["data"][0]["last"],
+        "change": data["data"][0]["variation"],
+        "percent": data["data"][0]["percentChange"]
+    })
+
+@app.route("/api/metals")
+def get_metals():
+    # For simplicity, we use goldprice.org or mock values
+    # Replace with real APIs if needed
+    return jsonify({
+        "gold": {"price": 71000, "unit": "INR/10g"},
+        "silver": {"price": 82000, "unit": "INR/kg"}
+    })
 
 
 if __name__ == '__main__':
