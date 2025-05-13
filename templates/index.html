@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InvestTrack - Login</title>
-  <link rel="icon" type="png" href="/assets/INVEST TRACK.png">
+  <link rel="icon" type="png" href="{{ url_for('static', filename='assets/INVEST TRACK.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 <body>
@@ -40,7 +40,7 @@
 
       <!-- Google Login Button -->
       <button type="button" id="google-login-btn" class="btn google-btn">
-        <img src="/assets/google-icon.png" alt="Google Logo" class="google-icon"> Login with Google
+        <img src="{{ url_for('static', filename='assets/google-icon.png') }}" alt="Google Logo" class="google-icon"> Login with Google
       </button>
 
       <div class="signup-link">
