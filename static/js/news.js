@@ -7,14 +7,14 @@ function loadTradingViewScript(callback) {
   document.body.appendChild(script);
 }
 
-const feedUrl = "https://news.google.com/rss/search?q=business+india&hl=en-IN&gl=IN&ceid=IN:en";
+const feedUrl = '/get-news';
 
 async function loadRSSFeed(url) {
   try {
-    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
-    const data = await response.json();
+    const response = await fetch(url);
+    const str = await response.text();
     const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, "text/xml");
+    const xml = parser.parseFromString(str, "application/xml");
     const items = xml.querySelectorAll("item");
 
     const container = document.getElementById("news-container");
