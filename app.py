@@ -97,7 +97,6 @@ def api_zerodha_holdings():
 
             holdings.append({
                 "instrument":      sym,
-                "name":            sym,
                 "broker":          "Zerodha",
                 "quantity":        qty,
                 "average_price":   avg,
@@ -131,7 +130,6 @@ def api_zerodha_holdings():
             pct  = round(((last - avg) / avg * 100) if avg > 0 else 0, 2)
             holdings.append({
                 "instrument":      name,
-                "name":            name,
                 "broker":          "Zerodha",
                 "quantity":        qty,
                 "average_price":   avg,
@@ -159,47 +157,14 @@ def portfolio():
 def news():
     return render_template('news.html')
 
-@app.route('/api/news')
+@app.route('/get-news')
 def get_news():
-    feed = feedparser.parse('https://www.moneycontrol.com/rss/latestnews.xml')
-    articles = []
-
-    for entry in feed.entries[:10]:  # Limit to top 10
-        articles.append({
-            'title': entry.title,
-            'description': entry.summary,
-            'url': entry.link
-        })
-
-    return jsonify({'articles': articles})
-
-@app.route("/api/nifty")
-def get_nifty():
-    # Set up headers to mimic a browser request
-    headers = {
-    "User-Agent": "Mozilla/5.0",
-    "Accept": "*/*",
-    "Referer": "https://www.nseindia.com"
-}
-    url = "https://www.nseindia.com/api/equity-stockIndices?index=NIFTY%2050"
-    r = requests.get(url, headers=headers)
-    data = r.json()
-    return jsonify({
-        "index": data["data"][0]["indexName"],
-        "last": data["data"][0]["last"],
-        "change": data["data"][0]["variation"],
-        "percent": data["data"][0]["percentChange"]
-    })
-
-@app.route("/api/metals")
-def get_metals():
-    # For simplicity, we use goldprice.org or mock values
-    # Replace with real APIs if needed
-    return jsonify({
-        "gold": {"price": 71000, "unit": "INR/10g"},
-        "silver": {"price": 82000, "unit": "INR/kg"}
-    })
-
+    rss_url = 'https://news.google.com/rss/search?q=business+india&hl=en-IN&gl=IN&ceid=IN:en'
+    try:
+        resp = requests.get(rss_url)
+        return resp.text, 200, {'Content-Type': 'application/xml'}
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
