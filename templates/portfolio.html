@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>InvestTrack - Portfolio</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="icon" type="png" href="{{ url_for('static', filename='assets/INVEST_TRACK.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}"/>
 </head>
@@ -96,6 +97,16 @@
     </div>
   </div>
 
+<!-- Chart Modal -->
+<div id="chart-modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeChartModal()">&times;</span>
+    <canvas id="stock-chart" width="400" height="400"></canvas>
+  </div>
+</div>
+
+
+  <script src="https://s3.tradingview.com/tv.js"></script>
   <script type="module" src="{{ url_for('static', filename='js/portfolio.js') }}"></script>
 </body>
 </html>
