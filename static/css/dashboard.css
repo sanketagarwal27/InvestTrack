@@ -1,362 +1,212 @@
-* {
+/* dashboard.css */
+body {
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background-color: #f5f7fa;
-  color: #333;
+  background-color: #000; /* Fixed dark mode */
+  color: #f0f0f0;
 }
 
 .navbar {
-  background-color: #2a5298;
-  color: white;
-  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #111;
+  padding: 0.8rem 2rem;
+  color: white;
 }
 
-.navbar .logo {
-  display: flex;
-  align-items: center;
-  font-size: 24px;
+.logo {
+  font-size: 1.4rem;
   font-weight: bold;
 }
 
-.navbar .logo-icon {
-  margin-right: 10px;
+.logo-icon {
+  font-size: 1.6rem;
 }
 
-/* logout button addition */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
 
-/* Add these styles to your dashboard.css file */
-
-#logout-btn {
-  background-color: transparent;
+.nav-menu li a {
   color: white;
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 6px 15px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s;
+  text-decoration: none;
 }
 
-#logout-btn:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.nav-item.logout {
-  margin-left: 20px;
+.nav-menu li a.active {
+  text-decoration: underline;
 }
 
 .navbar-right {
   display: flex;
+  gap: 1.5rem;
   align-items: center;
 }
 
 .nav-item {
-  margin-left: 20px;
-  cursor: pointer;
-  position: relative;
-}
-
-.user-profile {
   display: flex;
   align-items: center;
+  color: white;
+}
+
+.nav-item.notifications {
+  cursor: pointer;
+}
+
+.nav-item.user-profile {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .user-avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #1e3c72;
+  background-color: #4ea5ff;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  font-weight: bold;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  text-align: center;
+  width: 32px;
+  height: 32px;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 0 20px;
+  padding: 2rem;
 }
 
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
 
 .dashboard-title {
-  font-size: 28px;
-  color: #333;
+  font-size: 2rem;
 }
 
-.dashboard-actions .btn {
-  padding: 10px 20px;
-  background-color: #2a5298;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s;
-}
-
-.dashboard-actions .btn:hover {
-  background-color: #1e3c72;
-}
-
-.card {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  padding: 25px;
-  margin-bottom: 30px;
-}
-
-.card-header {
+.dashboard-actions {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.card-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
-}
-
-.card-content {
-  margin-bottom: 15px;
-}
-
-.broker-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.broker-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.broker-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.broker-logo {
-  width: 80px;
-  height: 80px;
-  background-color: #f5f7fa;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-  font-size: 24px;
-}
-
-.broker-name {
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.broker-status {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  margin-top: 10px;
-}
-
-.status-connected {
-  background-color: #e3f2fd;
-  color: #2196f3;
-}
-
-.status-not-connected {
-  background-color: #f5f5f5;
-  color: #757575;
-}
-
-.add-broker {
-  border: 2px dashed #ddd;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  transition: border-color 0.3s;
-}
-
-.add-broker:hover {
-  border-color: #2a5298;
-}
-
-.add-icon {
-  font-size: 30px;
-  margin-bottom: 10px;
-  color: #757575;
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 1000;
-  animation: fadeIn 0.3s;
-}
-
-.modal-content {
-  background-color: white;
-  width: 500px;
-  max-width: 90%;
-  border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 30px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.modal-title {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-.close-btn {
-  font-size: 24px;
-  cursor: pointer;
-  color: #777;
-  transition: color 0.3s;
-}
-
-.close-btn:hover {
-  color: #333;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #333;
-}
-
-.form-group select,
-.form-group input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .btn {
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-primary {
-  background-color: #2a5298;
+  background-color: #4ea5ff;
   color: white;
+  padding: 0.8rem 1.6rem;
   border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
-  background-color: #1e3c72;
+.btn:hover {
+  background-color: #3b8cc0;
 }
 
-.btn-secondary {
-  background-color: #f5f5f5;
-  color: #333;
-  border: 1px solid #ddd;
+.card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
 }
 
-.btn-secondary:hover {
-  background-color: #e8e8e8;
+.card-header {
+  padding: 1rem;
+  background-color: #111;
+  border-radius: 8px 8px 0 0;
 }
 
-/* Animation */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.card-title {
+  font-size: 1.4rem;
+  color: #f0f0f0;
 }
 
-/* Navigation Menu */
-.nav-menu {
-  list-style: none;
+.card-content {
+  padding: 1rem;
+}
+
+.broker-list {
   display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.nav-menu li {
-  margin-right: 25px;
+.broker-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 180px; /* Reduced width */
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
 }
 
-.nav-menu a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.3s;
+.broker-card .broker-logo img {
+  width: 100%;
+  max-width: 130px; /* Adjusted size of logo */
+  height: auto;
 }
 
-.nav-menu a:hover {
-  opacity: 0.8;
+.broker-logo {
+  cursor: pointer; /* Hand cursor on hover */
 }
 
-.nav-menu a.active {
-  border-bottom: 2px solid white;
-  padding-bottom: 5px;
+.broker-card .broker-name {
+  font-size: 1rem; /* Smaller font size for broker name */
+  margin-top: 1rem;
+  color: #f0f0f0;
+}
+
+.broker-card .broker-status {
+  font-size: 0.9rem; /* Slightly smaller font size for status */
+  margin-top: 1rem;
+  color: #4d7ccd;
+}
+
+.status-connected {
+  color: #00e1ff;
+}
+
+.status-not-connected {
+  color: #ff4d4d;
 }
 
 .broker-card.disabled {
-  pointer-events: none;
   opacity: 0.5;
+  pointer-events: none;
 }
 
-/* Optional: adjust Zerodha card cursor */
-#zerodha-connect {
+.broker-card.disabled .broker-status {
+  color: #ccc;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+#home-redirect-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: bold;
   cursor: pointer;
+}
+
+#logout-btn {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+  background-color: #e44e42;
 }
