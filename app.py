@@ -4,6 +4,9 @@ import os
 import requests
 import feedparser
 from dotenv import load_dotenv
+import google.generativeai as genai
+
+load_dotenv()
 
 app = Flask(__name__,
             static_url_path='/static',
@@ -166,5 +169,33 @@ def get_news():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=GEMINI_API_KEY)
+
+@app.route("/api/ai-suggestions", methods=["POST"])
+def ai_suggestions():
+    data = request.json
+    holdings = data.get("holdings", [])
+
+    prompt = f"Analyze this portfolio: {holdings}. Suggest buy/sell/hold decisions. Give reasons for each decision. Analyze the latest news articles related to these stocks and include them in your analysis. Provide a summary of the news articles and how they relate to the portfolio."
+
+    try:
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+        return jsonify({ "summary": response.text })
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({ "summary": "Something went wrong." }), 500
+
+# @app.route("/api/chatbot", methods=["POST"])
+# def chatbot():
+#     try:
+#         data = request.json
+#         message = data.get("message", "")
+#         response = model.generate_content(message)
+#         return jsonify({"reply": response.text})
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+    
 if __name__ == '__main__':
     app.run(debug=True)

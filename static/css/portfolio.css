@@ -258,3 +258,56 @@ button {
 button:hover {
   background-color: #9c4dcc;
 }
+#ai-tools-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+#ai-tools {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#suggestions-output {
+  margin-top: 20px;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.4;
+  font-size: 15px;
+  white-space: pre-line;
+  text-align: center;
+}
+.suggestion-card {
+  margin-top: 30px;
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px 25px;
+  max-width: 800px;
+  line-height: 1.6;
+  box-shadow: 0 0 15px rgba(128, 0, 128, 0.5);
+  font-family: 'Segoe UI', sans-serif;
+  white-space: pre-wrap;
+}
+
+.suggestion-card b {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.tag {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.tag.buy { background-color: #00c853; color: #fff; }
+.tag.sell { background-color: #d50000; color: #fff; }
+.tag.hold { background-color: #ffab00; color: #000; }

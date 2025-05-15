@@ -29,12 +29,14 @@ async function loadHoldings() {
 
     const seen = new Set();
     allHoldings = payload.holdings.filter(h => {
-      // Create a composite key (normalize case & trim whitespace)
-      const key = `${h.instrument.trim().toLowerCase()}|${h.broker.trim().toLowerCase()}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
+    const key = `${h.instrument.trim().toLowerCase()}|${h.broker.trim().toLowerCase()}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  window.userHoldings = allHoldings; // ✅ Store globally for AI usage
+
 
     renderSummary();
     applyFilters(); // re-apply any active filters/tabs
@@ -308,3 +310,76 @@ function initializeFirebase() {
     }
     document.body.appendChild(script1);
     })()
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("get-suggestions-btn").addEventListener("click", async () => {
+  const output = document.getElementById("suggestions-output");
+  output.innerHTML = "<i>Fetching suggestions...</i>";
+
+  try {
+    const res = await fetch("/api/ai-suggestions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ holdings: window.userHoldings || [] }),
+    });
+
+    const data = await res.json();
+    function formatSuggestions(text) {
+    return text
+      .replace(/^##\s*(.*)$/gm, '<b><h2>$1</h2></b>')         // ## Heading → bold + h2
+      .replace(/\*\*(.*?)\*\*/g, '<b><u>$1</u></b>')         // **bold** → bold + underline
+  }
+
+
+    output.innerHTML = formatSuggestions(data.summary);
+
+  } catch (e) {
+    output.innerHTML = "<span style='color: red;'>Error fetching suggestions.</span>";
+    console.error(e);
+  }
+});
+
+});
+
+
+// Toggle chatbot panel
+document.getElementById("chatbot-launcher").addEventListener("click", () => {
+  document.getElementById("chatbot-panel").style.right = "0";
+});
+
+document.getElementById("close-chatbot").addEventListener("click", () => {
+  document.getElementById("chatbot-panel").style.right = "-400px";
+});
+
+// Chatbot interaction
+document.getElementById("chat-input").addEventListener("keypress", async (e) => {
+  if (e.key === "Enter") {
+    const input = e.target.value.trim();
+    if (!input) return;
+
+    const history = document.getElementById("chat-history");
+    const userMsg = document.createElement("div");
+    userMsg.innerHTML = `<p><strong>You:</strong> ${input}</p>`;
+    history.appendChild(userMsg);
+    e.target.value = "";
+
+    try {
+      const res = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input }),
+      });
+
+      const data = await res.json();
+
+      const aiMsg = document.createElement("div");
+      aiMsg.innerHTML = `<p><strong>AI:</strong> ${data.reply || data.error}</p>`;
+      history.appendChild(aiMsg);
+      history.scrollTop = history.scrollHeight;
+    } catch (err) {
+      const errMsg = document.createElement("div");
+      errMsg.innerHTML = `<p><strong>AI:</strong> Error processing message.</p>`;
+      history.appendChild(errMsg);
+    }
+  }
+});

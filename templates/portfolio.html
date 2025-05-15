@@ -104,7 +104,15 @@
     <canvas id="stock-chart" width="400" height="400"></canvas>
   </div>
 </div>
+<div id="ai-tools-container">
+<div id="ai-tools">
+  <button id="get-suggestions-btn" style="padding: 10px 20px; background-color: purple; color: white; border: none; border-radius: 8px; cursor: pointer;">
+    Get Suggestions
+  </button>
+</div>
 
+<div id="suggestions-output" class="suggestion-card"></div>
+</div>
 
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script type="module" src="{{ url_for('static', filename='js/portfolio.js') }}"></script>
