@@ -1,51 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>InvestTrack - Sign Up</title>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
   <link rel="icon" type="png" href="{{ url_for('static', filename='assets/INVEST_TRACK.png') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/signUp.css') }}">
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <div class="logo-icon"><img src="{{ url_for('static', filename='assets/INVEST_TRACK.png') }}" width="'150" height="50" alt="Logo"></div>
-      <h1>InvestTrack</h1>
-    </div>
-    
-    <form id="signup-form">
+  <div id="particles-js"></div>
+  <div class="auth-container">
+    <h1 class="app-title">InvestTrack</h1>
+    <form id="signup-form" class="auth-form">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" required>
+        <input type="email" id="email" required />
         <div class="error-message" id="email-error">Please enter a valid email</div>
       </div>
-      
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" required>
+        <input type="password" id="password" required />
         <div class="error-message" id="password-error">Password must be at least 6 characters</div>
       </div>
-      
       <div class="form-group">
         <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" required>
+        <input type="password" id="confirm-password" required />
         <div class="error-message" id="confirm-password-error">Passwords do not match</div>
       </div>
-      
-      <button type="submit" class="btn">Sign Up</button>
-
-      <!-- Google Signup Button -->
+      <button type="submit" class="btn primary-btn">Sign Up</button>
       <button type="button" class="btn google-btn" id="google-signup">
-        
-        <img src="{{ url_for('static', filename='assets/google-icon.png') }}" width = "30" height="30" alt="Google Logo"><i class="fa fa-plus" style="margin-right: 6px;"></i> Sign Up with Google
+        <img src="{{ url_for('static', filename='assets/google-icon.png') }}" alt="Google Logo" /> Sign Up with Google
       </button>
-      <div class="login-link">
-        Already have an account? <a href="/index">Login</a>
-      </div>
+      <div class="switch-link">Already have an account? <a href="/index">Login</a></div>
     </form>
   </div>
-
   <script type="module" src="{{ url_for('static', filename='js/signUp.js') }}"></script>
+  <script>
+  tsParticles.load("particles-js", {
+    background: {
+      color: { value: "#0d0d0d" }
+    },
+    fpsLimit: 60,
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: "repulse" },
+        onClick: { enable: true, mode: "push" }
+      },
+      modes: {
+        repulse: { distance: 100 },
+        push: { quantity: 4 }
+      }
+    },
+    particles: {
+      color: { value: "#b883f7" },
+      links: {
+        color: "#b883f7",
+        distance: 150,
+        enable: true,
+        opacity: 0.4,
+        width: 1
+      },
+      collisions: { enable: false },
+      move: {
+        enable: true,
+        speed: 1.2,
+        direction: "none",
+        random: false,
+        straight: false,
+        outModes: { default: "bounce" }
+      },
+      number: {
+        value: 60,
+        density: { enable: true, area: 800 }
+      },
+      opacity: {
+        value: 0.5
+      },
+      shape: { type: "circle" },
+      size: {
+        value: { min: 1, max: 3 }
+      }
+    },
+    detectRetina: true
+  });
+</script>
 </body>
 </html>
