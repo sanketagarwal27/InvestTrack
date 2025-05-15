@@ -41,18 +41,16 @@ document.getElementById("home-redirect-btn").addEventListener("click", function(
     };
     document.head.appendChild(script1);
 })();
-
-function initializeFirebase() {
-
     // Firebase configuration
     const firebaseConfig = {
-  apiKey: "AIzaSyBZRMJK5t2E_6n5sh8d4dTpx8A-Qi849jk",
-  authDomain: "algorangerz.firebaseapp.com",
-  projectId: "algorangerz",
-  storageBucket: "algorangerz.firebasestorage.app",
-  messagingSenderId: "944282008720",
-  appId: "1:944282008720:web:d95cae525389f633acec15"
-};
+    apiKey: "AIzaSyB__n2ZBYNh9-Z-xirdBiFZuSLCk6vR_tk",
+    authDomain: "investtrack-8acfe.firebaseapp.com",
+    projectId: "investtrack-8acfe",
+    storageBucket: "investtrack-8acfe.firebasestorage.app",
+    messagingSenderId: "513418535963",
+    appId: "1:513418535963:web:47a76705f61492c563c4be",
+    measurementId: "G-NQC36B1KZ6"
+  };
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
@@ -74,4 +72,3 @@ function initializeFirebase() {
     window.location.href = "/";
   }
 });
-}

@@ -4,13 +4,14 @@ from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBZRMJK5t2E_6n5sh8d4dTpx8A-Qi849jk",
-  authDomain: "algorangerz.firebaseapp.com",
-  projectId: "algorangerz",
-  storageBucket: "algorangerz.firebasestorage.app",
-  messagingSenderId: "944282008720",
-  appId: "1:944282008720:web:d95cae525389f633acec15"
-};
+    apiKey: "AIzaSyB__n2ZBYNh9-Z-xirdBiFZuSLCk6vR_tk",
+    authDomain: "investtrack-8acfe.firebaseapp.com",
+    projectId: "investtrack-8acfe",
+    storageBucket: "investtrack-8acfe.firebasestorage.app",
+    messagingSenderId: "513418535963",
+    appId: "1:513418535963:web:47a76705f61492c563c4be",
+    measurementId: "G-NQC36B1KZ6"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -90,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then((result) => {
                 console.log("Google Sign-In successful:", result.user);
                 localStorage.setItem('isLoggedIn', 'true');
-                alert("Login successful with Google! Redirecting...");
                 window.location.href = '/dashboard';
             })
             .catch((error) => {

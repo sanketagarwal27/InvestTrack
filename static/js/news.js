@@ -1,3 +1,6 @@
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+    import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+
 // Dynamically load TradingView widget script
 function loadTradingViewScript(callback) {
   var script = document.createElement('script');
@@ -41,3 +44,23 @@ async function loadRSSFeed(url) {
 }
 
 loadRSSFeed(feedUrl);
+
+const firebaseConfig = {
+    apiKey: "AIzaSyB__n2ZBYNh9-Z-xirdBiFZuSLCk6vR_tk",
+    authDomain: "investtrack-8acfe.firebaseapp.com",
+    projectId: "investtrack-8acfe",
+    storageBucket: "investtrack-8acfe.firebasestorage.app",
+    messagingSenderId: "513418535963",
+    appId: "1:513418535963:web:47a76705f61492c563c4be",
+    measurementId: "G-NQC36B1KZ6"
+  };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+  auth.onAuthStateChanged(function(user) {
+    if (!user) {
+    // User is not signed in, redirect to login page
+    window.location.href = "/";
+  }
+});
