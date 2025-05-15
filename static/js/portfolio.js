@@ -23,7 +23,8 @@ async function loadHoldings() {
     console.log('Raw Holdings:', payload.holdings);
 
     if (payload.error) {
-      alert('Zerodha Broker not connected. Please connect to Zerodha first.');
+      alert('No Broker Connected, connect a broker first.');
+      window.location.href = '/dashboard';
       return;
     }
 
@@ -275,7 +276,6 @@ document.getElementById('refresh-btn')
 // Initial load
 document.addEventListener('DOMContentLoaded', loadHoldings);
 
-function initializeFirebase() {
   // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyBZRMJK5t2E_6n5sh8d4dTpx8A-Qi849jk",
@@ -291,11 +291,10 @@ function initializeFirebase() {
   const auth = getAuth(app);
   auth.onAuthStateChanged(function(user) {
     if (!user) {
-      // User is not signed in, redirect to login page
-      window.location.href = "/"; // or wherever your login page is
-    }
+    // User is not signed in, redirect to login page
+    window.location.href = "/";
+  }
   });
-}
 
 (function() {
   const script1 = document.createElement('script');
