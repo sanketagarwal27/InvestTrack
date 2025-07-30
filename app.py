@@ -177,7 +177,37 @@ def ai_suggestions():
     data = request.json
     holdings = data.get("holdings", [])
 
-    prompt = f"Analyze this portfolio: {holdings}. Suggest buy/sell/hold decisions. Give reasons for each decision. Analyze the latest news articles related to these stocks and include them in your analysis. Provide a summary of the news articles and how they relate to the portfolio."
+    # Fetch news for each stock
+    news_by_stock = {}
+    for h in holdings:
+        symbol = h.get("instrument")
+        news_feed = f"https://news.google.com/rss/search?q={symbol}+stock&hl=en-IN&gl=IN&ceid=IN:en"
+        feed = feedparser.parse(news_feed)
+
+        articles = []
+        for entry in feed.entries[:2]:  # Limit to top 2 articles
+            articles.append({
+                "title": entry.title,
+                "summary": getattr(entry, "summary", ""),
+                "link": entry.link
+            })
+        
+        if articles:
+            news_by_stock[symbol] = articles
+
+    if not news_by_stock:
+        return jsonify({ "summary": "No recent news found for your holdings." })
+
+    # Construct prompt
+    prompt = "You are an investment assistant. Analyze the following news articles and their potential impact on the user's portfolio:\n\n"
+
+    for stock, articles in news_by_stock.items():
+        prompt += f"\n Stock: {stock}\n"
+        for article in articles:
+            prompt += f" Title: {article['title']}\n"
+            prompt += f" Summary: {article['summary']}\n"
+
+    prompt += "\nGive buy/hold/sell suggestions based only on this news. If any stock has no news, ignore it."
 
     try:
         model = genai.GenerativeModel("gemini-1.5-flash")
@@ -185,7 +215,7 @@ def ai_suggestions():
         return jsonify({ "summary": response.text })
     except Exception as e:
         print("Error:", e)
-        return jsonify({ "summary": "Something went wrong." }), 500
+        return jsonify({ "summary": "Something went wrong while processing AI analysis." }), 500
 
 # @app.route("/api/chatbot", methods=["POST"])
 # def chatbot():
